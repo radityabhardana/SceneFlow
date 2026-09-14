@@ -1,7 +1,8 @@
-import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 
-export default defineConfig([
+export default [
   ...nextVitals,
-  globalIgnores([".next/**", "node_modules/**", "src/db/migrations/meta/**"]),
-]);
+  {
+    ignores: [".next/**", "node_modules/**", "src/db/migrations/meta/**"],
+  },
+];

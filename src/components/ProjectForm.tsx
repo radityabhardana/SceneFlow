@@ -4,7 +4,7 @@ import { useActionState } from 'react';
 import type { Project } from '../domain/project/types';
 import { createProjectAction, updateProjectAction, type ProjectFormState } from '../app/actions/projects';
 
-const ratios = ['16:9', '9:16', '1:1', '4:5'];
+const ratios = ['16:9', '9:16', '1:1'];
 const blank: ProjectFormState = { errors: {}, values: {} };
 
 type Props = { project?: Project };

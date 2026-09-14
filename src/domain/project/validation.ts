@@ -11,7 +11,7 @@ const inputFields: readonly (keyof ProjectInput)[] = [
   "visualStyle",
 ];
 
-export function validateProjectInput(input: ProjectInput): ProjectValidationErrors {
+export async function validateProjectInput(input: ProjectInput): Promise<ProjectValidationErrors> {
   const errors: ProjectValidationErrors = {};
   const candidate: Partial<Record<keyof ProjectInput, unknown>> =
     typeof input === "object" && input !== null ? input : {};
@@ -24,8 +24,8 @@ export function validateProjectInput(input: ProjectInput): ProjectValidationErro
       continue;
     }
 
-    if (field !== "aspectRatio" && value.trim().length === 0) {
-      errors[field] = `${field} must not be empty.`;
+    if (field === "title" && value.trim().length === 0) {
+      errors.title = "title must not be empty.";
     }
   }
 

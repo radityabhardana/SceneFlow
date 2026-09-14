@@ -22,8 +22,8 @@ function toProject(row: typeof projects.$inferSelect): Project {
   };
 }
 
-function checkedInput(input: ProjectInput): ProjectInput {
-  const errors = validateProjectInput(input);
+async function checkedInput(input: ProjectInput): Promise<ProjectInput> {
+  const errors = await validateProjectInput(input);
   if (Object.keys(errors).length > 0) {
     throw new ProjectValidationError(errors);
   }
@@ -32,7 +32,7 @@ function checkedInput(input: ProjectInput): ProjectInput {
 }
 
 export async function createProject(input: ProjectInput): Promise<Project> {
-  const normalizedInput = checkedInput(input);
+  const normalizedInput = await checkedInput(input);
   const now = new Date();
   const row = {
     id: randomUUID(),
@@ -56,7 +56,7 @@ export async function getProject(id: string): Promise<Project | null> {
 }
 
 export async function updateProject(id: string, input: ProjectInput): Promise<Project> {
-  const normalizedInput = checkedInput(input);
+  const normalizedInput = await checkedInput(input);
   const existing = getDatabase().select().from(projects).where(eq(projects.id, id)).get();
   if (!existing) {
     throw new ProjectNotFoundError(id);
