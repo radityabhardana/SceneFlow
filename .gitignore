@@ -60,6 +60,7 @@ build/
 dist/
 .pnp
 .pnp.js
+*.tsbuildinfo
 
 # Testing & Coverage
 coverage/

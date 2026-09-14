@@ -1,6 +1,6 @@
-# AI Drama Studio
+# SceneFlow
 
-AI Drama Studio adalah tool pribadi untuk membantu produksi serial video AI pendek yang tetap konsisten antar-scene dan antar-episode.
+SceneFlow adalah tool pribadi untuk membantu produksi serial video AI pendek yang tetap konsisten antar-scene dan antar-episode.
 
 Fokus utama sistem bukan sekadar membuat prompt, tetapi mengelola:
 
@@ -28,7 +28,7 @@ Generator video AI bekerja baik untuk klip pendek, tetapi sulit menjaga:
 - misteri atau plot tidak selesai terlalu cepat,
 - kejadian lama tetap diingat.
 
-AI Drama Studio bertindak sebagai **showrunner + continuity engine**.
+SceneFlow bertindak sebagai **showrunner + continuity engine**.
 
 ---
 

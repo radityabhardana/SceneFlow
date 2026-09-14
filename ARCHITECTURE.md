@@ -1,5 +1,5 @@
 # Architecture
-## AI Drama Studio
+## SceneFlow
 
 ## 1. Architecture Style
 

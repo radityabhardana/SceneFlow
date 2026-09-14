@@ -1,9 +1,9 @@
 # Product Requirements Document
-## AI Drama Studio
+## SceneFlow
 
 ## 1. Product Summary
 
-AI Drama Studio adalah aplikasi lokal untuk membantu seorang creator membuat serial video AI pendek yang konsisten.
+SceneFlow adalah aplikasi lokal untuk membantu seorang creator membuat serial video AI pendek yang konsisten.
 
 Sistem mengelola struktur cerita, karakter, state dunia, objek, plot aktif, dan prompt video sebelum creator menggunakan Gemini untuk menghasilkan video.
 

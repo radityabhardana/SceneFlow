@@ -8,23 +8,41 @@ import {
   updateProject,
   validateProjectInput,
 } from "@/domain/project";
+import { ProjectNotFoundError } from "@/domain/project";
 import type { ProjectInput } from "@/domain/project";
 
 const projectInput: ProjectInput = {
   title: "  The Last Signal  ",
-  premise: "A radio operator hears a message from tomorrow.",
-  genre: "Sci-fi drama",
-  tone: "Suspenseful",
-  aspectRatio: "16:9",
-  visualStyle: "Moody practical lighting",
+  premise: "  A radio operator hears a message from tomorrow.  ",
+  genre: "  Sci-fi drama  ",
+  tone: "  Suspenseful  ",
+  aspectRatio: " 16:9 " as ProjectInput["aspectRatio"],
+  visualStyle: "  Moody practical lighting  ",
 };
 
 describe("project validation", () => {
-  it("requires a non-empty title and reports actionable field errors", async () => {
-    const errors = await validateProjectInput({ ...projectInput, title: "   " });
+  const requiredFields: readonly (keyof ProjectInput)[] = [
+    "title",
+    "premise",
+    "genre",
+    "tone",
+    "aspectRatio",
+    "visualStyle",
+  ];
 
-    expect(errors).toEqual({ title: "title must not be empty." });
-  });
+  for (const field of requiredFields) {
+    it(`rejects an empty ${field}`, async () => {
+      const errors = await validateProjectInput({ ...projectInput, [field]: "" } as ProjectInput);
+
+      expect(errors[field]).toBe(`${field} must not be empty.`);
+    });
+
+    it(`rejects a whitespace-only ${field}`, async () => {
+      const errors = await validateProjectInput({ ...projectInput, [field]: " \t\n " } as ProjectInput);
+
+      expect(errors[field]).toBe(`${field} must not be empty.`);
+    });
+  }
 
   it("accepts only the documented aspect-ratio union", async () => {
     const errors = await validateProjectInput({
@@ -37,10 +55,19 @@ describe("project validation", () => {
 });
 
 describe("project persistence", () => {
+  it("raises a typed error when updating a missing project", async () => {
+    await expect(updateProject("missing-project", projectInput)).rejects.toBeInstanceOf(ProjectNotFoundError);
+  });
+
   it("creates, reads, lists, updates, and survives a database reopen", async () => {
     const created = await createProject(projectInput);
 
     expect(created.title).toBe("The Last Signal");
+    expect(created.premise).toBe("A radio operator hears a message from tomorrow.");
+    expect(created.genre).toBe("Sci-fi drama");
+    expect(created.tone).toBe("Suspenseful");
+    expect(created.aspectRatio).toBe("16:9");
+    expect(created.visualStyle).toBe("Moody practical lighting");
     expect(created.id).toBeTypeOf("string");
     expect(created.createdAt).toBeInstanceOf(Date);
     expect(created.updatedAt.getTime()).toBe(created.createdAt.getTime());

@@ -1,5 +1,5 @@
 # AGENTS.md
-## AI Drama Studio
+## SceneFlow
 
 Dokumen ini menjadi pedoman untuk AI coding agent yang mengerjakan repository ini.
 
@@ -7,7 +7,7 @@ Dokumen ini menjadi pedoman untuk AI coding agent yang mengerjakan repository in
 
 ## Product Context
 
-AI Drama Studio adalah aplikasi lokal single-user untuk mengelola produksi serial video AI pendek.
+SceneFlow adalah aplikasi lokal single-user untuk mengelola produksi serial video AI pendek.
 
 Jangan mengubah produk menjadi SaaS, multi-user platform, atau cloud-first app kecuali ada instruksi eksplisit.
 

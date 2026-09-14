@@ -1,5 +1,5 @@
 # Data Model
-## AI Drama Studio
+## SceneFlow
 
 Model ini adalah baseline. Nama field dapat berubah saat implementasi, tetapi konsep domain jangan dihilangkan.
 

@@ -24,13 +24,15 @@ export async function validateProjectInput(input: ProjectInput): Promise<Project
       continue;
     }
 
-    if (field === "title" && value.trim().length === 0) {
-      errors.title = "title must not be empty.";
+    const trimmedValue = value.trim();
+    if (trimmedValue.length === 0) {
+      errors[field] = `${field} must not be empty.`;
+      continue;
     }
-  }
 
-  if (typeof candidate.aspectRatio === "string" && !aspectRatios.includes(candidate.aspectRatio as (typeof aspectRatios)[number])) {
-    errors.aspectRatio = `aspectRatio must be one of: ${aspectRatios.join(", ")}.`;
+    if (field === "aspectRatio" && !aspectRatios.includes(trimmedValue as (typeof aspectRatios)[number])) {
+      errors.aspectRatio = `aspectRatio must be one of: ${aspectRatios.join(", ")}.`;
+    }
   }
 
   return errors;
@@ -42,7 +44,7 @@ export function normalizeProjectInput(input: ProjectInput): ProjectInput {
     premise: input.premise.trim(),
     genre: input.genre.trim(),
     tone: input.tone.trim(),
-    aspectRatio: input.aspectRatio,
+    aspectRatio: input.aspectRatio.trim() as ProjectInput["aspectRatio"],
     visualStyle: input.visualStyle.trim(),
   };
 }

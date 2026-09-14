@@ -1,6 +1,7 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 import {
   createProject,
   updateProject,
@@ -51,6 +52,7 @@ export async function createProjectAction(_previous: ProjectFormState = emptySta
   } catch {
     return { errors: {}, values: valuesOf(input), message: 'The project could not be saved. Try again.' };
   }
+  revalidatePath('/', 'page');
   redirect(`/projects/${project.id}`);
 }
 
@@ -63,5 +65,7 @@ export async function updateProjectAction(id: string, _previous: ProjectFormStat
   } catch {
     return { errors: {}, values: valuesOf(input), message: 'The project could not be updated. Try again.' };
   }
+  revalidatePath('/', 'page');
+  revalidatePath(`/projects/${id}`, 'page');
   redirect(`/projects/${id}`);
 }

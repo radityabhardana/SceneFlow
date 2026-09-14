@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { listProjects } from '../domain/project/service';
 import type { Project } from '../domain/project/types';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   let projects: Project[] = [];
   let failed = false;
