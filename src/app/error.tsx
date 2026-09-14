@@ -1,0 +1,3 @@
+'use client';
+
+export default function Error({ reset }: { error: Error & { digest?: string }; reset: () => void }) { return <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8"><p className="mono text-[10px] uppercase tracking-[.2em] text-[#f09a8b]">Workspace error</p><h1 className="mt-4 text-3xl font-semibold">Something interrupted the workspace.</h1><p className="mt-3 text-sm text-[#969b9a]">Your local data was not changed.</p><button onClick={reset} className="mt-7 border border-[#c5e86c] px-4 py-2 text-sm font-semibold text-[#c5e86c] hover:bg-[#c5e86c] hover:text-[#0d1110]">Try again</button></div>; }
