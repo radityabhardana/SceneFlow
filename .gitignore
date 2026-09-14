@@ -84,6 +84,8 @@ pnpm-debug.log*
 data/
 local_storage/
 
+# Drizzle local metadata generated alongside migrations is tracked; local DB files are not.
+
 # ==================================================
 # Environment Variables & Secrets
 # ==================================================
