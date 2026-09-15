@@ -13,7 +13,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <span className="flex h-8 w-8 items-center justify-center border border-[#c5e86c] text-sm font-bold text-[#c5e86c]">S</span>
             <span className="text-sm font-semibold tracking-[.18em]">SCENEFLOW</span>
           </Link>
-          <span className="mono hidden text-[10px] uppercase tracking-[.22em] text-[#969b9a] sm:block">Local production workspace</span>
+          <div className="flex items-center gap-5"><Link href="/settings/ai" className="mono text-[10px] uppercase tracking-[.16em] text-[#969b9a] hover:text-[#c5e86c]">Settings</Link><span className="mono hidden text-[10px] uppercase tracking-[.22em] text-[#969b9a] sm:block">Local production workspace</span></div>
         </div>
       </header>
       <main>{children}</main>
