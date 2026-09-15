@@ -1,114 +1,76 @@
 # SceneFlow
 
-SceneFlow adalah tool pribadi untuk membantu produksi serial video AI pendek yang tetap konsisten antar-scene dan antar-episode.
+> **UNDER CONSTRUCTION**
+>
+> SceneFlow masih dalam pengembangan aktif. Fondasi project dan Story Bible sudah tersedia; fitur perencanaan scene, continuity, dan produksi belum diimplementasikan.
 
-Fokus utama sistem bukan sekadar membuat prompt, tetapi mengelola:
+SceneFlow adalah aplikasi lokal single-user untuk mengelola continuity dan persiapan produksi serial video AI pendek. Database SQLite lokal menjadi source of truth untuk cerita, karakter, aturan dunia, relasi, dan lokasi.
 
-- **Story continuity**
-- **Character consistency**
-- **World state**
-- **Episode planning**
-- **Scene segmentation**
-- **Prompt compilation**
-- **Result logging**
-- **Plot thread tracking**
+## Status saat ini
 
-Target awal sistem adalah workflow pribadi menggunakan **Gemini melalui browser/manual copy-paste**, tanpa ketergantungan pada Gemini API berbayar.
+Tersedia:
 
----
+- Project dashboard, create, edit, dan persistence lokal
+- World rules dengan canon lock
+- Character Bible, personality traits, locked traits, dan status roster
+- Character relationships dan locations
+- AI gateway foundation untuk 9router/OpenAI-compatible gateway melalui `/settings/ai`
 
-## Core Problem
+Belum tersedia:
 
-Generator video AI bekerja baik untuk klip pendek, tetapi sulit menjaga:
+- episode atau scene planner
+- story state, event ledger, dan continuity checker
+- prompt compiler atau video generation
+- authentication, cloud services, billing, atau fitur tim
 
-- karakter tetap sama,
-- benda tetap berada di tempat yang benar,
-- emosi dan posisi karakter tetap konsisten,
-- cerita antar-klip tetap nyambung,
-- misteri atau plot tidak selesai terlalu cepat,
-- kejadian lama tetap diingat.
+## Teknologi
 
-SceneFlow bertindak sebagai **showrunner + continuity engine**.
+- Next.js App Router
+- TypeScript strict
+- Tailwind CSS
+- SQLite + Drizzle ORM
+- pnpm
 
----
+## Menjalankan lokal
 
-## Core Workflow
-
-```text
-Create Project
-    ↓
-Define World Bible
-    ↓
-Define Characters
-    ↓
-Plan Season / Episode
-    ↓
-Generate Scene Blueprint
-    ↓
-Validate Continuity
-    ↓
-Compile Gemini Prompt
-    ↓
-Copy Prompt to Gemini
-    ↓
-Generate Video
-    ↓
-Log Actual Result
-    ↓
-Update Story State
-    ↓
-Generate Next Scene
+```powershell
+pnpm install
+Copy-Item .env.example .env
+pnpm dev
 ```
 
----
+Aplikasi development berjalan di `http://127.0.0.1:3000` dan data lokal tersimpan di `data/sceneflow.db`.
 
-## V1 Scope
+## AI gateway lokal
 
-V1 hanya perlu:
+SceneFlow menggunakan gateway OpenAI-compatible milik user, bukan endpoint OpenAI atau Gemini langsung. Konfigurasi berada di `.env`:
 
-1. Project management
-2. World Bible
-3. Character Bible
-4. Story Threads
-5. Episode Planner
-6. Scene Planner
-7. Current Story State
-8. Continuity Checker
-9. Prompt Compiler
-10. Result Logger
+```env
+AI_GATEWAY_BASE_URL=http://localhost:20128/v1
+AI_GATEWAY_MODEL=gpt-5.6-luna
+AI_GATEWAY_API_KEY=
+AI_GATEWAY_TIMEOUT_MS=120000
+```
 
-Trend intelligence dan automasi eksternal masuk setelah fondasi cerita terbukti stabil.
+`AI_GATEWAY_MODEL` harus sama persis dengan salah satu ID dari `GET {AI_GATEWAY_BASE_URL}/models`. Jangan commit `.env` atau API key. Gunakan `/settings/ai` untuk memeriksa gateway dan menjalankan test sentinel lokal.
 
----
+## Perintah
 
-## Suggested Stack
+```powershell
+pnpm dev
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm db:migrate
+```
 
-- Next.js
-- TypeScript
-- Tailwind CSS
-- SQLite
-- Drizzle ORM atau Prisma
-- Local filesystem
-- Gemini via browser/manual workflow
+## Prinsip produk
 
-Tidak diperlukan pada V1:
+- Local-first dan single-user
+- Database adalah source of truth
+- Canon yang terkunci tidak berubah secara implisit
+- Validasi deterministik didahulukan sebelum AI
+- Context AI harus kecil dan relevan
 
-- authentication,
-- payment,
-- Supabase,
-- Firebase,
-- Redis,
-- VPS,
-- multi-user,
-- Gemini API.
-
----
-
-## Product Principle
-
-> Gemini digunakan sebagai creative reasoning engine.  
-> Aplikasi lokal digunakan sebagai source of truth.
-
-Chat history bukan database.
-
-State cerita harus tersimpan secara eksplisit.
+Dokumen produk dan arsitektur lengkap tersedia di `PRD.md`, `ARCHITECTURE.md`, `DATA_MODEL.md`, `WORKFLOW.md`, dan `ROADMAP.md`.
