@@ -8,6 +8,20 @@
       "when": 1789381990389,
       "tag": "0000_goofy_sumo",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789466095061,
+      "tag": "0001_yielding_mandroid",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789467331232,
+      "tag": "0002_glossy_vance_astro",
+      "breakpoints": true
     }
   ]
 }

@@ -61,6 +61,7 @@ dist/
 .pnp
 .pnp.js
 *.tsbuildinfo
+.slim/deepwork/
 
 # Testing & Coverage
 coverage/
