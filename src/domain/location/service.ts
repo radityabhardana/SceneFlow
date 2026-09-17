@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { and, desc, eq } from "drizzle-orm";
 
 import { getDatabase } from "@/db/client";
-import { locations, projects } from "@/db/schema";
+import { characterStates, locations, objectStates, projects } from "@/db/schema";
 
 import { LocationIntegrityError, LocationNotFoundError, LocationValidationError } from "./types";
 import type { Location, LocationInput } from "./types";
@@ -80,6 +80,11 @@ export async function updateLocation(projectId: string, locationId: string, inpu
 
 export async function deleteLocation(projectId: string, locationId: string): Promise<void> {
   getExisting(projectId, locationId);
+  const characterState = getDatabase().select({ locationId: characterStates.locationId }).from(characterStates).where(and(eq(characterStates.projectId, projectId), eq(characterStates.locationId, locationId))).get();
+  const objectState = getDatabase().select({ locationId: objectStates.locationId }).from(objectStates).where(and(eq(objectStates.projectId, projectId), eq(objectStates.locationId, locationId))).get();
+  if (characterState || objectState) {
+    throw new LocationIntegrityError("location_in_use", "Location cannot be deleted while referenced by current state.", locationId);
+  }
   getDatabase().delete(locations).where(and(eq(locations.projectId, projectId), eq(locations.id, locationId))).run();
 }
 

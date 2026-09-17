@@ -2,8 +2,8 @@ import { foreignKey, integer, sqliteTable, text, unique } from "drizzle-orm/sqli
 
 import { projects } from "./projects";
 
-export const locations = sqliteTable(
-  "locations",
+export const storyObjects = sqliteTable(
+  "story_objects",
   {
     id: text("id").primaryKey().notNull(),
     projectId: text("project_id").notNull(),
@@ -14,11 +14,11 @@ export const locations = sqliteTable(
     updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
   },
   (table) => [
-    unique("locations_project_id_id_unique").on(table.projectId, table.id),
+    unique("story_objects_project_id_id_unique").on(table.projectId, table.id),
     foreignKey({
       columns: [table.projectId],
       foreignColumns: [projects.id],
-      name: "locations_project_id_projects_id_fk",
+      name: "story_objects_project_id_projects_id_fk",
     }).onDelete("cascade"),
   ],
 );

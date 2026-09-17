@@ -38,14 +38,16 @@ export class LocationNotFoundError extends Error {
   }
 }
 
-export type LocationIntegrityCode = "project_not_found";
+export type LocationIntegrityCode = "project_not_found" | "location_in_use";
 
 export class LocationIntegrityError extends Error {
   readonly code: LocationIntegrityCode;
+  readonly locationId?: string;
 
-  constructor(code: LocationIntegrityCode, message: string) {
+  constructor(code: LocationIntegrityCode, message: string, locationId?: string) {
     super(message);
     this.name = "LocationIntegrityError";
     this.code = code;
+    this.locationId = locationId;
   }
 }
